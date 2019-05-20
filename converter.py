@@ -17,10 +17,11 @@ def get_json(file):
 def convert_to_html(data):
     html_str = ""
     for simple_dict in data:
-        h1 = simple_dict['title']
-        p = simple_dict['body']
-        line = "<h1>{text_h1}</h1><p>{text_p}</p>".format(text_h1=h1, text_p=p)
-        html_str += line
+        for tag_key, body_value in simple_dict.items():
+            tag = tag_key
+            body = body_value
+            line = "<{tag}>{body}</{tag}>".format(tag=tag, body=body)
+            html_str += line
     return html_str
 
 

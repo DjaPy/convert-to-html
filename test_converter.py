@@ -3,7 +3,7 @@ import json
 
 from converter import convert_to_html
 
-HTML_STRING = """<h1>Title #1</h1><p>Hello, World 1!</p><h1>Title #2</h1><p>Hello, World 2!</p>"""
+HTML_STRING = """<h3>Title #1</h3><div>Hello, World 1!</div>"""
 
 
 def get_data():
@@ -15,4 +15,4 @@ def get_data():
 def test_converter():
     data = get_data()
     output_code = convert_to_html(data)
-    assert output_code == HTML_STRING
+    assert HTML_STRING in output_code
