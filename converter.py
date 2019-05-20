@@ -14,15 +14,35 @@ def get_json(file):
         )
 
 
-def convert_to_html(data):
-    html_str = ""
-    for simple_dict in data:
-        for tag_key, body_value in simple_dict.items():
-            tag = tag_key
-            body = body_value
-            line = "<{tag}>{body}</{tag}>".format(tag=tag, body=body)
-            html_str += line
-    return html_str
+def check_array(data):
+    if isinstance(data, list):
+        return True
+
+
+def wrap_tag(simple_dict):
+    wrap_line = ""
+    for tag_key, body_value in simple_dict.items():
+        tag = tag_key
+        body = body_value
+        line = "<{tag}>{body}</{tag}>".format(tag=tag, body=body)
+        wrap_line += line
+    return wrap_line
+
+
+def convert_to_html(data, array=True):
+    if array:
+        html_list_str = ""
+        for simple_dict in data:
+            wrap_line = wrap_tag(simple_dict)
+            list_wrap_line = "<li>{body_li}</li>".format(body_li=wrap_line)
+            html_list_str += list_wrap_line
+        return "<ul>{body_list}</ul>".format(body_list=html_list_str)
+    else:
+        html_str = ""
+        for simple_dict in data:
+            wrap_line = wrap_tag(simple_dict)
+            html_str += wrap_line
+        return html_str
 
 
 def write_html_to_file(data, file):
@@ -34,7 +54,8 @@ def main():
     r_file = "source.json"
     w_file = "index.html"
     json_text = get_json(r_file)
-    convert_data = convert_to_html(json_text)
+    array = check_array(json_text)
+    convert_data = convert_to_html(json_text, array)
     write_html_to_file(convert_data, w_file)
     print("Conversion successful")
 

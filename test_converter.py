@@ -3,7 +3,7 @@ import json
 
 from converter import convert_to_html
 
-HTML_STRING = """<h3>Title #1</h3><div>Hello, World 1!</div>"""
+HTML_STRING = """<ul><li><h3>Title #1</h3><div>Hello, World 1!</div></li>"""
 
 
 def get_data():
